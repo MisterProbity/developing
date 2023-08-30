@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Computer Science</title>
+
+<link href="/vendor/animate.css/animate.min.css" rel="stylesheet">
+<link href="/vendor/aos/aos.css" rel="stylesheet">
+<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+<link href="/vendor/remixicon/remixicon.css" rel="stylesheet">
+<link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
+<link href="/css/biochemistry.css" rel="stylesheet">
+
+<style>
+  .bookModal{
+     background-color: #86db9f;
+  }
+</style>
+
+</head>
+
+<body>
+
+
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top">
+  <div class="container d-flex align-items-center">
+
+    <h1 class="logo me-auto"><a href="ProbityLMS.html">PROBITY</a></h1>
+    <!-- Uncomment below if you prefer to use an image logo -->
+    <!-- <a href="index.html" class="logo me-auto"><img src="/img/logo.png" alt="" class="img-fluid"></a>-->
+
+    <nav id="navbar" class="navbar order-last order-lg-0">
+      <ul>
+        <li><a class="active" href="/admin/home">Home</a></li>
+        <!-- <li> <a href="https://www.jstor.org/images">jstor</a> </li> -->
+        <li><a href="/admin/about">About</a></li>
+        <li><a href="/admin/program">Programmes</a></li>
+        <li><a href="/admin/lecturer">Lecturers</a></li>
+        <li><a href="/admin/loan">Loan</a></li>
+        <li><a href="/admin/opac">OPAC</a></li> 
+
+        <li class="dropdown"><a href="#"><span>Search</span> <i class="bi bi-chevron-down"></i></a>
+          <ul>
+            <li><a href="#">Simple search</a></li>
+            <li class="dropdown"><a href="#"><span>Advanced search</span> <i class="bi bi-chevron-right"></i></a>
+              <ul>
+                <li><a href="/admin/searchAuthor">Search by Author</a></li>
+                <li><a href="/admin/searchSubject">Search by Subject</a></li>
+                <li><a href="/admin/searchYear">Search by Year</a></li>
+              </ul>
+            </li>
+              <!-- <li><a href="#why-us">Faculty</a></li> -->
+            </li>
+          </ul>
+        </li>
+
+        <!-- <li class="dropdown"><a href="#"><span>Sign in</span></a>
+          <ul>
+            <li><a href="/admin/index">User/Student</a></li>
+            <li><a href="/admin/indexAdmin"><span>Admin</span></a></i>
+
+          </ul>
+        </li>    -->
+          
+      <!-- <li><a href="/admin/signUp">Sign up</a></li> -->
+      <li><a class="active" href="/admin/signUp">Add Admin</a></li>
+    </ul>
+
+      <i class="bi bi-list mobile-nav-toggle"></i>
+    </nav><!-- .navbar -->
+
+    <!-- <a href="courses.html" class="get-started-btn">Search</a> -->
+
+  </div>
+</header> <br><br><br><br><!-- End Header -->
+
+
+<div>
+  
+<input id="searchbar" onkeyup="search_animal()" type="text"
+        name="search" placeholder="Search books on Biochemistry ..">  <br><br>
+
+<div class="container my-3">
+  <button type="button lead content-center" class="btn btn-sm btn-success ml-2"   data-bs-toggle="modal" data-bs-target="#myModal">
+    Add Computer  science material
+  </button>
+</div>
+
+<!-- Button to Open the Modal -->
+
+
+  
+  <!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header bg-success">
+          <h4 class="modal-title text-light">Add new book</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="bookModal">
+        <div class="modal-body">
+          <form method="POST" enctype="multipart/form-data"> 
+            <div class="row">
+                <div class="col">
+                    <input type="file" class="form-control" placeholder="choose document"  style="width:13rem" accept="application/*" name="document">  
+                </div>
+               <div class="col">
+                <input type="text" class="form-control" placeholder="Title" name="title" style="width:13rem">
+              </div>
+            </div> <br>
+
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Author" name="author" style="width:13rem" >
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="ISSBN" name="issbn" style="width:13rem">
+                </div>
+            </div>
+<br>
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Location" name="location" style="width:13rem">
+                </div>
+
+                <div class="col">
+                   <input type="text" class="form-control" placeholder="Year" name="year" style="width:13rem">
+                </div>  <br> 
+<br>
+                <div class="col">
+        
+                    <input type="hidden" name="programme" value="Computer Science">
+                
+              </div>
+                </div>
+
+                
+                <div class="text-light bg-success">
+                  <label for="comment">description:</label>
+                  <textarea class="form-control" rows="5" cols="10" id="comment" name="description"></textarea>
+              </div> 
+
+              <!-- Modal footer -->
+              <div class="modal-footer justify-content-center">
+                <button type="submit" class="btn btn-success">save</button>
+              </div>
+             </div>
+          </form> 
+    </div>
+    </div>
+
+
+  </div>
+</div>
+</div>
+
+
+<div class="px-auto">
+<div class="container">
+<% for( let book of computerCourses) { %>
+  <ul class="navbar-nav">
+    <li class="nav-item" id="handle">
+      <a class="nav-link" href="/admin/borrow/<%= book.id %>">
+        <!-- <div class="col-sm-"" col-md-1 col-lg-1">
+          <\% if (book.document) { %>
+d                <%# }else{ %>m
+              <embed src="/document/6.arjw3w5kmf1692417148482.pdf" alt=""/> <br>
+              
+              <%#}  %>
+            </div> -->
+            
+            <div class="animals">
+           <div class="row" id="element">
+              <div class="col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1">
+                <img src="/img/programming.jfif" alt=""> <br> 
+              </div> 
+
+          <div class="col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1">
+            <i> <em>Title</em><br>
+              
+                <%= book.title %>
+            
+            </i>
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1">
+            <i> <em>Desciption</em> <br>
+                <%= book.description %>
+              </i>
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1">
+            <i><em>Year</em> <br>
+                <%= book.year %>
+              </i>
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1">
+            <i><em>Author</em> <br>
+                <%= book.author %>
+               </i>
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1">
+            <i><em>ISSBN</em>  <br>
+                <%= book.issbn %>
+              </i>
+          </div>
+        </div>
+      </div>
+      </a>
+  </li>
+</ul>
+<% } %>
+</div>
+</div>
+</div>
+
+
+  </div>
+</div>
+   
+</div>
+
+
+
+
+<footer id="footer">
+                        
+  <div class="footer-top">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-3 col-md-6 footer-contact">
+          <h3>Probity</h3>
+          <p>
+            Km 30 waliu Street <br>
+            Igboora, OY 535022<br>
+            Oyo States <br><br>
+            <strong>Phone:</strong> +234 808 832 0430<br>
+            <strong>Email:</strong> waliuraheem5@gmail.com<br>
+          </p>
+        </div>
+
+        <div class="col-lg-2 col-md-6 footer-links">
+          <h4>Useful Links</h4>
+
+          <ul>
+            <li><i class="bx bx-chevron-right"></i> <a href="/admin/home">Home</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/admin/about">About us</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/admin/program">Services</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links">
+          <h4>Our Services</h4>
+          <ul>
+            <li><i class="bx bx-chevron-right"></i> <a href="/admin/program">Programmes</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/admin/loan">Library loan</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/admin/opac">OPAC</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-md-6 footer-newsletter">
+          <h4>Join Our Newsletter</h4>
+          <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+          <form action="" method="post">
+            <input type="email" name="email"><input type="submit" value="Subscribe">
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container d-md-flex py-4">
+
+    <div class="me-md-auto text-center text-md-start">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Probity</span></strong>. All Rights Reserved
+      </div>
+  
+    </div>
+    <div class="social-links text-center text-md-right pt-3 pt-md-0">
+      <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+      <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+      <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+    </div>
+  </div>
+</footer><!-- End Footer -->
+
+
+
+    <script>
+      function search_animal() {
+        let input = document.getElementById('searchbar').value
+        input=input.toLowerCase();
+        let x = document.getElementsByClassName('animals');
+        
+        for (i = 0; i < x.length; i++) {
+          if (!x[i].innerHTML.toLowerCase().includes(input)) {
+            x[i].style.display="none";
+          }
+          else {
+            x[i].style.display="list-item";				
+          }
+        }
+      }
+
+    </script>
+
+    <script src="/vendor/jquery-3.6.0.js"></script>
+<script src="/vendor/jquery-3.6.0.js"></script>
+<script src="/bootstrap-5.2.1-dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>

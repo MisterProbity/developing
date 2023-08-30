@@ -1,0 +1,122 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account login</title>
+
+  <link href="/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <!-- <link href="/css/login.css" rel="stylesheet"> -->
+  <!-- <link href="/js/login.js" rel="script"> -->
+
+
+  <style>
+    .welcomeAdmin{
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: bold;
+        font-size: larger;
+        font-style: oblique;
+        
+      }
+
+      .innerUser{
+        background-coor:#0fc947 ;
+        background-coor: rgb(183, 29, 121);
+        background-color: rgb(75, 10, 78);
+          background-coor: #780000;
+
+      }
+    
+    
+  </style>
+  </head>
+
+  <body>
+
+<!-- sign in section -->
+  <section class="vh-">
+    <div class="container py-5 h-10" id="bord">
+        <div class="welcomeAdmin text-info" style="margin:10px 32% ;"> Welcome To Probity Library Management System</div>
+        <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-4">
+        <!-- <div class="card shadow-2-strong"> -->
+        <div class="card-body p- text-center" style="width:20px;">
+
+          <div class="innerUser text-light" style="margin:0px; border-radius:1rem; width:23rem; height:30rem">
+
+                <h3 class="mb-5">Sign in</h3>
+    
+      <form name="" action=""  method="post" authenticate>
+      <div class="form-outline mb-4 mx-8">
+        <label class="form-label" for="typeEmailX-2" id="user_name" style="padding-right: 18rem" ><b> Email </b></label>
+        <input type="text" name="email" style="width:20rem; margin:0px 20px;"  id="typeEmailX-2" placeholder="Email OR Username" class="form-control form-control-sm"  />
+      </div>
+    
+      <div class="form-outline mb-4 mx-8">
+        <label class="form-label color-success" for="typePasswordX-2" id="pass_word" style="padding-right: 17rem"><b> Password </b></label>
+        <input type="password" name="password" style="width:20rem; margin:0px 20px;" id="typePasswordX-2" placeholder="" class="form-control form-control-sm" required />
+      </div>
+    
+      <!-- Checkbox -->
+      <div class="form-check d-flex justify-content-start mb-4 mx-4">
+        <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
+        <label class="form-check-label" for="form1Example3"> <b> Remember password </b> </label>
+      </div>
+
+      <input  type="submit"  class="btn btn-primary w-15" value="login" id="log-in"/>
+      <br><br>
+
+      <p>  <b> Don't have account ? </b>  <a href="/signUp"><b> register here </b></a> </p>
+
+    </form>
+  </div>
+
+    
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+  </section>
+
+
+  
+
+  
+
+
+    <!-- <script>
+
+      function login(){
+            var user = document.loginform.user_name.value;
+            var pass = document.loginform.pass_word.value;
+      if(user == "" || pass == ""){
+              alert("sorry...Please Enter Username and Passowrd");
+         }else{
+      if((user == "waliu" || user == "WALIURAHEEM5@GMAIL.COM") && pass == "admin"){
+              window.location.replace("http://127.0.0.1:5500/programmes.html");
+        }else{
+             alert("Please Enter Correct Login details");
+      }
+           }
+               }
+    </script>  -->
+
+<!-- Section: Design Block -->
+
+
+
+  </body>
+  </html>
+
+    
+    

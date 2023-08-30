@@ -1,0 +1,59 @@
+
+body{
+	background: url("../img/") top center;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-size: cover;
+	font-size: larger;
+}
+
+
+#searchbar{
+	margin-left: 15%;
+	padding:15px;
+	border-radius: 10px;
+}
+
+input[type=text] {
+	width: 30%;
+	-webkit-transition: width 0.15s ease-in-out;
+	transition: width 0.15s ease-in-out;
+}
+
+/* When the input field gets focus,
+		change its width to 100% */
+input[type=text]:focus {
+	width: 70%;
+}
+
+#list{
+	font-size: 0.8em;
+	margin-left: 90px;
+}
+
+.animals{
+display: list-item;	
+}
+
+ul li{
+	list-style-type: none;
+}
+
+a{
+    text-decoration: none;
+    color:blue ;
+}
+
+em{
+	color: rgba(202, 94, 153, 0.772);
+}
+
+#shelve{
+	background: url("../img/Background.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#element{
+	font-size: smaller;
+}

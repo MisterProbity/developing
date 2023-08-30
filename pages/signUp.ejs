@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up page</title>
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/signup.css" rel="stylesheet">
+
+  <script>
+    the.title = "enter your valid gmail account."
+  </script>
+</head>
+
+<style>
+
+  #start{
+    padding-right: 300px;
+    color: white;
+    font-weight: bolder;
+  }
+</style>
+
+<body>
+    
+
+
+
+<!-- Section: Design Block -->
+<section class="text-center">
+    <!-- Background image -->
+    <div class="p-5 bg-image" style="
+          background-image: url('https://mdbootstrap.com/img/new/textures/full/171.jpg');
+          height: 100px;">
+    </div>
+    <!-- Background image -->
+  
+    <div class="card mx-4 mx-md-5 shadow-5-strong" style="
+          margin-top: -100px;
+          background: hsla(0, 0%, 100%, 0.8);
+          backdrop-filter: blur(30px);
+          ">
+      <div class="card-body py-5 px-md-5">
+  
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-8">
+            <h2 class="fw-bold mb-5">Sign up now</h2>
+
+            <form action="" method="post">
+              <!-- first name -->
+              <div class="row" id="the" style="background-color: rgb(183, 29, 121);">
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="form3Example1" id="start">first_Name</label>
+                    <input type="text" id="form3Example1" name="first_Name" class="form-control"  style="border: 3px solid rgb(75, 10, 78);" />
+                    
+                  </div>
+                </div>
+
+                <!-- last names -->
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="form3Example2" id="start">last_Name</label>
+                    <input type="text" id="form3Example2" name="last_Name" class="form-control"  style="border: 3px solid rgb(75, 10, 78);" />
+                    
+                  </div>
+                </div>
+
+                <!-- other names -->
+                <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                      <label class="form-label" for="form3Example2" id="start">other_Names</label>
+                      <input type="text" id="form3Example2" name="other_Names" class="form-control"  style="border: 3px solid rgb(75, 10, 78);" />
+                      
+                    </div>
+                </div>
+
+                 <!-- Email input -->
+              <div class="col-md-6 mb-4">
+                <div class="form-outline"> 
+                  <label class="form-label" for="form3Example3" id="start" >email</label>
+                  <input type="email" id="form3Example3" name="email" class="form-control"  placeholder="waliuraheem@gmail.com"  style="border: 3px solid rgb(75, 10, 78);" />
+                
+                </div>
+              </div>
+
+
+                 <!-- phone number -->
+                 <div class="col-md-6 mb-4">
+                  <div class="form-outline"> 
+                    <label class="form-label" for="form3Example3" id="start" >phone_number</label>
+                    <input type="text" id="form3Example3" name="phone_number" class="form-control"  style="border: 3px solid rgb(75, 10, 78);" />
+                  
+                  </div>
+                </div>
+
+                 <div class="col-md-6 mb-4">
+                  <div class="form-outline"> 
+                      <!-- <input type="text" id="form3Example2" class="form-control" /> -->
+                      <label class="form-label" for="form3Example2" id="start">Faculty</label>
+                    <SELECT name="faculty" SIZE="1" id="form3Example2" class="form-control"  style="border: 3px solid rgb(75, 10, 78);" >
+                    <option> Click and select your Faculty</option>
+                    <option name="faculty" value="natural & applied sciences">Natural & Applied Sciences</option>
+                    <option name="faculty" value="Enginering">Engineering</option>
+                    <option name="faculty" value="Environmental">Environmental planning & Mgt.</option>
+                    </SELECT>
+                   <label class="form-label" for="form3Example2"></label>
+                </div>
+             </div> 
+
+                <!-- Department -->
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline"> 
+                    <label class="form-label" for="form3Example3" id="start" >department</label>
+                    <input type="text" id="form3Example3" name="department" class="form-control"  style="border: 3px solid rgb(75, 10, 78);"  />
+                  
+                  </div>
+                </div>
+
+            
+
+             <div class="col-md-6 mb-4">
+              <div class="form-outline"> 
+                  <!-- <input type="text" id="form3Example2" class="form-control" /> -->
+                  <label class="form-label" for="form3Example2" id="start">Gender</label>
+                <select name="gender" SIZE="1" id="form3Example2" class="form-control"  style="border: 3px solid rgb(75, 10, 78);" >
+                <option> Click and select your gender</option>
+                <option name="gender">male</option>
+                <option name="gender">female</option>
+                </select>
+            </div>
+         </div> 
+
+
+          <!-- Password input -->
+              
+        <div class="col-md-6 mb-4">
+          <div class="form-outline"> 
+            <label class="form-label" for="form3Example4" id="start">password</label>
+            <input type="password" id="form3Example4"  class="form-control"  style="border: 3px solid rgb(75, 10, 78);" />
+          
+        </div>
+        </div>
+  
+
+        <!-- confirm password -->
+        <div class="col-md-6 mb-4">
+          <div class="form-outline"> 
+            <label class="form-label" for="form3Example4" id="start">confirm</label>
+            <input type="password" id="form3Example4" name="password" class="form-control"  style="border: 3px solid rgb(75, 10, 78);"  />
+          
+        </div>
+        </div>
+
+        </div> <br>
+  
+            
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-primary btn-block mb-4" style="background-color: rgb(75, 10, 78);">
+            Sign up
+          </button>
+
+          <!-- Register buttons -->
+          <!-- <div class="text-center">
+            <p>or sign up with:</p>
+            <button type="button" class="btn btn-link btn-floating mx-1">
+              <i class="fab fa-facebook-f"></i>
+            </button>
+
+            <button type="button" class="btn btn-link btn-floating mx-1">
+              <i class="fab fa-google"></i>
+            </button>
+
+            <button type="button" class="btn btn-link btn-floating mx-1">
+              <i class="fab fa-twitter"></i>
+            </button>
+
+            <button type="button" class="btn btn-link btn-floating mx-1">
+              <i class="fab fa-github"></i>
+            </button>
+          </div> -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Section: Design Block -->
+
+
+
+  
+
+  
+
+  
+</body>
+</html>

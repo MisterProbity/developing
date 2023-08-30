@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account admin login</title>
+
+<link href="/vendor/animate.css/animate.min.css" rel="stylesheet">
+<link href="/vendor/aos/aos.css" rel="stylesheet">
+<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+<link href="/vendor/remixicon/remixicon.css" rel="stylesheet">
+<link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+<!-- <link href="/css/login.css" rel="stylesheet"> -->
+
+
+<style>
+
+  .inner{
+    background-clor: #780000;
+    background-color: rgb(183, 29, 121);
+
+  }
+
+  .welcomeAdmin{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    font-size: large;
+    font-style: oblique;
+  }
+
+</style>
+
+
+
+</head>
+
+<body>
+
+<!-- second -->
+
+  <section class="vh- w-100px" style="margin-top: 70px;">
+    <div class="container py-5 h-100" >
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-8 col-xl-3">
+          <!-- <div class="card shadow-2-strong" style="border-radius: 1rem;"> -->
+            <div class="welcomeAdmin text-success">  Welcome to Probity Library Management System</div>
+            <div class="inner" style=" border-radius:0.5rem;">
+            <div class="card-body p-5 text-center ">
+
+  
+              <h5 class="mb-4 text-light"><b> Sign in as an Admin </b></h5>
+  
+              <form name="loginform" action="" method="post">
+              <div class="form-outline mb-4">
+                <label class="form-label text-light mx-100" for="typeEmailX-2" id="email" style="padding-right: 18rem"><b> Email </b></label>
+                <input type="text" name="email" id="typeEmailX-2" placeholder="email/username" class="form-control form-control-sm"  />
+              </div>
+  
+              <div class="form-outline mb-4">
+                <label class="form-label ml-2 text-light "  id="password" style="padding-right: 17rem"><b> Password </b> </label>
+                <input type="password" name="password" id="typePasswordX-2" placeholder="" class="form-control form-control-sm" required />
+              </div>
+  
+              <!-- Checkbox -->
+              <div class="form-check d-flex justify-content-start mb-4">
+                <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
+                <label class="form-check-label text-light" for="form1Example3"> <b> Remember password </b> </label>
+              </div>
+              
+              <!-- <button class="btn btn-primary btn-sm btn-block" type="submit">Login</button> -->
+              <input class="mx-auto btn btn-success " type="submit" value="login"  onclick="login()"/>
+              <br><br>
+
+
+            </form>
+            </div>
+            
+  
+              <!-- <hr class="my-4">
+   -->
+              <!-- <button class="btn btn-lg btn-block btn-primary" style="background-color: #dd4b39;"
+                type="submit"><i class="fab fa-google me-2"></i> Sign in with google</button>
+              <button class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #3b5998;"
+                type="submit"><i class="fab fa-facebook-f me-2"></i>Sign in with facebook</button> -->
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+  
+    
+
+  </section>
+
+
+  <!-- <form  name="loginform" action="thanks.html">
+    <input  type="text" name="user_name"/>
+    <input  type="password" name="pass_word"/>
+    <input  type="button" value="login"  onclick="login()"/>
+  </form> -->
+
+  <!-- Section: Design Block -->
+  <!-- <script>
+    function login(){
+          var user = document.loginform.user_name.value;
+          var pass = document.loginform.pass_word.value;
+    if(user == "" || pass == ""){
+            alert("sorry...Please Enter Username and Passowrd");
+       }else{
+    if((user == "wal" || user == "WAL") && pass == "23"){
+            window.location.replace("http://127.0.0.1:5500/ProbityLMS.html");
+      }else{
+           alert("Please Enter Correct Login details");
+    }
+         }
+             }
+  </script> -->
+
+  
+  <!-- <script>
+    function login(){
+          var user = document.loginform.user_name.value;
+          var pass = document.loginform.pass_word.value;
+    if(user == "" || pass == ""){
+            alert("sorry...Please Enter Username and Passowrd");
+       }else{
+    if((user == "waliu" || user == "WALIURAHEEM5@GMAIL.COM") && pass == "admin"){
+            window.location.replace("http://127.0.0.1:5500/programmes.html");
+      }else{
+           alert("Please Enter Correct Login details");
+    }
+         }
+             }
+  </script> -->
+
+<!-- Section: Design Block -->
+
+<!-- <script>
+function auth(event) {
+  event.preventDefault();
+
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
+
+  if (username === "admin@gmail.com" && password === "user") {
+       window.location.replace("http://www.rex14.ml/");
+  } else {
+      alert("Please enter valid information");
+      return;
+  }
+if (username === "" && password === "") {
+       alert("Please enter information");
+  } else {
+      
+      return;
+  }
+}
+</script> -->
+
+</body>
+</html>
+
+  
+  
