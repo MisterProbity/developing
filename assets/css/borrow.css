@@ -1,0 +1,19 @@
+
+.borrow{
+    margin-top: 4rem;
+    margin-bottom: 5rem;
+}
+.BorrowBody{
+            
+    margin-top: 15px ;
+    
+}
+
+#borrowForm{
+    background-color: rgb(221, 208, 216);
+    margin: 10px;
+    padding-top: 20px;
+    padding-right: 30px;
+    padding-left: 30px;
+    align-content: center;
+}

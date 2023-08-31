@@ -10,7 +10,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="/img/favicon.png" rel="icon">
+  <link href="/img/the new p.jpg" rel="icon">
   <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -27,6 +27,7 @@
 
   <!-- Template Main CSS File -->
   <link href="/css/style.css" rel="stylesheet">
+  <link href="/css/bookDetail.css" rel="stylesheet">
 
    <!-- =======================================================
   * Template Name: PROBITY
@@ -43,8 +44,7 @@
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo me-auto"><a href="ProbityLMS.html">PROBITY</a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
+      <a href="/user/home" class="logo me-auto"><img src="/img/probity.jpg" alt="" class="img-fluid"> <i class="text-danger">LMS</i> </a>      <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto"><img src="/img/logo.png" alt="" class="img-fluid"></a>-->
 
       <nav id="navbar" class="navbar order-last order-lg-0">
@@ -97,27 +97,6 @@
 
     <!-- ======= Breadcrumbs ======= -->
  
-    <style>
-      body{
-        background-color: rgb(131, 108, 131);
-      }
-
-      .entire{
-          margin-left:20px;
-        }
-
-      #borrowForm{
-            /*width: 100%;*/
-            background-color: rgb(183, 29, 121);
-            margin: 10px;
-            padding-top: 20px;
-            padding-right: 30px;
-            padding-left: 30px;
-        }
-
-        
-    </style>
-
 
 
     <!-- <div class="col">
@@ -130,62 +109,76 @@
 
 
 <div class="entire">
-  <div class="container mx-5 col-12 col-sm-3 col-md-3 col-lg-4 col-xl-4" style="width:80%;">
-            <form action="">
-              <div id="borrowForm">
-                <div class="heading text-info text-10  mb-4"><b> Borrow New Material </b> </div>
-                <div class="row">
-                    <div class="col"> 
-                      <div class="d">Book Title</div>
-
-                      <%=book.title  %>
-                    </div>
-                <div class="col">
-                  <div class="">Author Name</div>
-                    <%=book.author  %>                
+  <div class="breadcrumbs" data-aos="fade-in">
+    <div class="container font-10px">
+      <h2>Library Circulation</h2>
+      <p>The information below describe the list of books borrowed from this shelf. 
+       <div class="text-warning"> Do please monitor the material to be returned as at when due, thanks !!!.</div> </p>
+    </div>
   </div>
-                </div> <br>
-
-                <div class="row">
-                    <div class="col">
-                      <div class="">Book ISSBN</div>
-                        <%= book.issbn %>
-                    </div> <br>
-                    
-                    <div class="col">
-                        <div class="">Book Location </div>
-                      <%= book.location %>
-                    </div>
-                    </div>   <br>
-
-                <div class="row">
-
-                    <div class="col">
-                      <%= new Date().toDateString() %>
-                    </div> <br>
-
-                    <div class="col">
-                      <%= new Date(Number(new Date()) + ( 7 * 24*60*60*1000)).toDateString() %>
-                     </div> <br>
-
-                 </div> <br>
-
-                 
-
-                 
-
-               </div
-
-          
-
-              </div> 
-            </form> 
-       
-        </div>
+  
+  <div class="borrowers container col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1 justify-content-center" style="width:70%;" >
+              <form action="" method="">
+              <div id="borrowForm">
+                  <div class="heading text-dark text-20px   mb-4"><b> Details of the material </b> </div>
+  
+                  <div class="row">
+  
+                      <div class="col font-weight-bold "> 
+                        <div class="text-danger"><b> Book Title</b> </div>
+                        <%=book.title  %>
+                      </div>
+  
+                  <div class="col font-weight-bold">
+                    <div class="text-danger"><b>Author Name</b></div>
+                      <%=book.author  %>            
+                   </div>
+  
+                  </div> <br>
+  
+                  <div class="row">
+  
+                      <div class="col font-bold">
+                        <div class="text-danger"><b>Book ISSBN </b></div>
+                          <%= book.issbn %>
+                      </div> <br>
+                      
+                      <div class="col font-bold">
+                          <div class="text-danger"><b>Book Location </b> </div>
+                        <%= book.location %>
+                      </div>
+  
+                   </div>   <br>
+  
+  
+                  <div class="row">
+  
+                      <div class="col font-bold">
+                        <div class="text-danger"> <b>Date-Borrowed</b> </div>
+                        <%= new Date().toDateString() %>
+                      </div> <br>
+  
+                      <div class="col font-bold">
+                        <div class="text-danger"> <b>Due-Date </b></div>
+                        <%= new Date(Number(new Date()) + ( 7 * 24*60*60*1000)).toDateString() %>
+                       </div> <br>
+  
+                   </div> <br>
+  
+                   
+  
+                
+  
+                 </div> 
+              </form> 
+         
+          </div>
 </div>
-<div class="container">
-<div class="card text-start my-3">
-  <div class="card-title"> <caption>List of Borrowers</caption>  </div>
+
+
+<div class="borrowers container col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1" style="width: 70%;" >
+<div class="card text-start my-3 mx-2 border-0">
+  <div class="card-title text-warning" > <caption><b> List of Borrowers </b></caption>  </div>
   <div class="card-body">
     <div class="container">
       <div class="table-responsive-sm">
@@ -193,7 +186,7 @@
         table-hover	
         table-primary
         align-middle">
-          <thead class="table-light">
+          <thead class="table-info">
             <tr>
               <th>Name</th>
               <th>Book Title</th>
@@ -203,7 +196,7 @@
             </thead>
             <tbody class="table-group-divider">
               <% for(borrower of borrowers  ) { %>
-                <tr class="table-primary" >
+                <tr class="table-danger" >
                   <td scope="row"><%= borrower.first_Name + " " + borrower.last_Name %></td>
                   <td><%= borrower.title %></td>
                   <td><%= borrower.date_borrowed %></td>
