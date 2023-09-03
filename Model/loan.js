@@ -15,7 +15,7 @@ class Loan extends Model{
     
     static async patron(programme){
         let result = []
-        let sql = `SELECT us.first_Name, us.last_Name, bk.title, due_date, date_borrowed FROM loans ln LEFT JOIN books bk ON ln.book_id=bk.id LEFT JOIN users us ON ln.user_id = us.id WHERE programme =?;`
+        let sql = `SELECT us.first_Name, us.last_Name, bk.title, ln.due_date, ln.date_borrowed FROM loans ln LEFT JOIN books bk ON ln.book_id=bk.id LEFT JOIN users us ON ln.user_id = us.id WHERE programme =?;`
         let [rows] = await conn.execute(sql,[programme])
         for(const row of rows){
             result.push(new this(row))

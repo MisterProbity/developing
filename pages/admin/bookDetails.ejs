@@ -199,8 +199,8 @@
                 <tr class="table-danger" >
                   <td scope="row"><%= borrower.first_Name + " " + borrower.last_Name %></td>
                   <td><%= borrower.title %></td>
-                  <td><%= borrower.date_borrowed %></td>
-                  <td><%= borrower.due_date %></td>
+                  <td><%- borrower.date_borrowed%></td>
+                  <td><%- borrower.due_date%></td>
                 </tr>
               
               <% } %>
@@ -229,7 +229,7 @@
         <div class="row">
 
           <div class="col-lg-3 col-md-6 footer-contact">
-            <h3>Probity</h3>
+            <h4>Probity</h4>
             <p>
               Km 30 waliu Street <br>
               Igboora, OY 535022<br>

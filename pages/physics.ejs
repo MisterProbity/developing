@@ -157,77 +157,80 @@
             </div>
       
     <!-- ordered list -->
-   
-      <div class="container">
-        <% for( let book of physicsCourses) { %>
-          <ul class="navbar-nav">
-            <li class="nav-item" id="handle">
-              <a class="nav-link" href="/user/borrow/<%= book.id %>">
-                <div class="animals">               
-          <div class="row"  id="element">
-            
-            <div class="col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1">
-              <img src="/img/programming.jfif" alt=""> 
-            </div> 
-    
-      <div class="col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1" > 
-        <i> <em> Title </em> <br>
-           <%= book.title %>
-        </i> 
-      </div>
 
-      <div class="col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1">
-       <i> <em> Desciption </em> <br>
-         <%= book.description %>
-        </i> 
-      </div>
-
-      <div class="col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1">
-        <i> <em> Year</em> <br>
-            <%= book.year %>
-        </i>
-      </div>
-
-      <div class="col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1">
-        <i><em> Author </em> <br>
-            <%= book.author %>
-        </i> 
-      </div>
-
-      <div class="col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1">
-        <i> <em> ISSBN</em> <br>
-             <%= book.issbn %>
-        </i> 
-      </div>
-     
-      <div class="col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1">
-        <!-- <i><a>buttonRed</button><p><p>  -->
-          <!-- <button type="button lead content-center" class="btn btn-sm btn-success ml-1"   data-bs-toggle="modal" data-bs-target="#myModal">
-            Borrow
-          </button> -->
-          <%= book.borrow %> </i> 
-      </div>
-</div>
-      
-            </div>
+    <div class="container">
+      <% for( let book of physicsCourses) { %>
+        <ul class="navbar-nav">
+          <li class="nav-item" id="handle">
+            <a class="nav-link" href="/user/borrow/<%= book.id %>">
+              <div class="animals">
+        <div class="row"  id="element">
+          
+          <div class="col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1">
+            <img src="/img/programming.jfif" alt=""> 
+          </div> 
   
-          </div>
-        </div>
-        </div>
-            </a>
-        </li>
-        </ul>
-          <% } %>
-     
-        </div>
+    <div class="col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1" > 
+      <i> <em> Title </em> <br>
+         <%= book.title %>
+      </i> 
+    </div>
 
-      </div>
-      
-      
+    <div class="col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1">
+     <i> <em> Desciption </em> <br>
+       <%= book.description %>
+      </i> 
+    </div>
+
+    <div class="col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1">
+      <i> <em> Year</em> <br>
+          <%= book.year %>
+      </i>
+    </div>
+
+    <div class="col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1">
+      <i><em> Author </em> <br>
+          <%= book.author %>
+      </i> 
+    </div>
+
+    <div class="col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1">
+      <i> <em> ISSBN</em> <br>
+           <%= book.issbn %>
+      </i> 
+    </div>
+   
+    <div class="col-sm-2 col-md-2 col-lg-5 col-xl-2 xxl-1">
+      <!-- <i><a>buttonRed</button><p><p>  -->
+        <!-- <button type="button lead content-center" class="btn btn-sm btn-success ml-1"   data-bs-toggle="modal" data-bs-target="#myModal">
+          Borrow
+        </button> -->
+        <%= book.borrow %> </i> 
+    </div>
+    </div>
+    
+          </div>
+
         </div>
       </div>
-         
       </div>
+          </a>
+      </li>
+      </ul>
+        <% } %>
+   
+      </div>
+
+    </div>
+    
+    
+      </div>
+    </div>
+       
+    </div>
+
+
+
 
 
 

@@ -18,41 +18,24 @@
   <!-- <link href="/js/login.js" rel="script"> -->
 
 
-  <style>
-    .welcomeAdmin{
-        font-family: 'Times New Roman', Times, serif;
-        font-weight: bold;
-        font-size: larger;
-        font-style: oblique;
-        
-      }
-
-      .innerUser{
-        background-coor:#0fc947 ;
-        background-coor: rgb(183, 29, 121);
-        background-color: rgb(75, 10, 78);
-          background-coor: #780000;
-
-      }
-    
-    
-  </style>
   </head>
 
   <body>
 
+
 <!-- sign in section -->
-  <section class="vh-">
+  <!-- <section class="vh-">
     <div class="container py-5 h-10" id="bord">
-        <div class="welcomeAdmin text-info" style="margin:10px 32% ;"> Welcome To Probity Library Management System</div>
+        <div class="welcomeAdmin text-danger" style="margin:10px 32% ;"> Welcome To Probity Library Management System</div>
         <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-4">
-        <!-- <div class="card shadow-2-strong"> -->
         <div class="card-body p- text-center" style="width:20px;">
 
           <div class="innerUser text-light" style="margin:0px; border-radius:1rem; width:23rem; height:30rem">
 
-                <h3 class="mb-5">Sign in</h3>
+            <a href="/user/home" class="logo me-auto"><img src="/img/probity.jpg" style="width: 100px; margin:10px;" alt="" class="img-fluid"> <i class="text-danger">LMS</i> </a>    
+
+                <h3 class="mb-3">Sign in</h3>
     
       <form name="" action=""  method="post" authenticate>
       <div class="form-outline mb-4 mx-8">
@@ -65,7 +48,7 @@
         <input type="password" name="password" style="width:20rem; margin:0px 20px;" id="typePasswordX-2" placeholder="" class="form-control form-control-sm" required />
       </div>
     
-      <!-- Checkbox -->
+      Checkbox
       <div class="form-check d-flex justify-content-start mb-4 mx-4">
         <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
         <label class="form-check-label" for="form1Example3"> <b> Remember password </b> </label>
@@ -84,15 +67,81 @@
             </div>
           </div>
         </div>
+    </div> -->
+
+  <!-- </section> -->
+
+
+
+  <section>
+
+
+  <div class="container-fluid mt-5" >
+    <div class="row align-items-center justify-content-center 
+           row-cols-1 row-cols-md-4 g-4 " >
+       <div class="col col-8 col-lg-2 col-xl-3 ">
+        <div class="text-info">Welcome To Probity Library Mgt System</div>
+         <div class="card h-10" id="border">
+            <div class="card-body bg-light ">
+        <center>  <img src="/img/probity.jpg" style="width: 100px; margin:10px;" alt="" class="img-fluid"> <i class="text-danger">LMS</i> </center>
+
+         
+           <form name="" action=""  method="post" authenticate>
+                   
+             <center>
+                  <div> <h3 class="mb-3 mt-4 text-primary">Sign in</h3></div>
+
+                  <div>
+                      <label class="form-label text-danger" for="typeEmailX-2" id="user_name" style="padding-right: 18rem" ><b> Email </b></label>
+                      <input type="email" name="email" style="width:15rem; margin:0px 20px;"  id="typeEmailX-2" placeholder="Email OR Username" class="form-control form-control-sm"  />
+                   </div>
+
+                  <div class="mb-3 mt-4">
+                    <label class="form-label text-danger" for="typePasswordX-2" id="pass_word" style="padding-right: 17rem"><b> Password </b></label>
+                    <input type="password" name="password" style="width:15rem; margin:0px 20px;" id="typePasswordX-2" placeholder="" class="form-control form-control-sm" required />
+                  </div>   
+
+
+                  <div class="form-check d-flex justify-content-start mb-4 mt-3 mx-1">
+                    <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
+                    <label class="form-check-label text-danger" for="form1Example3"> <b> Remember password </b> </label>
+                  </div>
+
+
+                  <div>
+                    <input  type="submit"  class="btn btn-outline-success justify-content-center w-15 mb-3" value="login" id="log-in"/>
+                  </div>             
+                   
+                 <div>
+                   <p>  <b> Don't have account ? </b>  <a href="/signUp"><b> register here </b></a> </p>
+                </div>
+
+         </center>
+      </form>
+              
+
+                <!-- <div class="row mt-3" id="Awesome">
+                  <div class="container-fluid text-info" id="click">
+                    click below for more info</div> 
+                    <div class="col"><a href=""><i class="bi bi-facebook"></i></a></div>
+                    <div class="col"><a href=""><i class="bi bi-twitter"></a></i></div>
+                    <div class="col"><a href=""><i class="bi bi-instagram"></a></i></div>
+                    <div class="col"><a href=""><i class="bi bi-whatsapp"></a></i></div>
+                     <div class="col" id="ham"><a href="">&#9776;</a></i></div> -->
+                <!-- </div> -->
+                <!-- <h5 class="card-title">Card title</h5> -->
+            </div>
+         </div>
+       </div>
     </div>
+</div>
 
-  </section>
+</section>
 
 
-  
 
-  
-
+</body>
+</html>
 
     <!-- <script>
 
@@ -115,8 +164,6 @@
 
 
 
-  </body>
-  </html>
 
     
     
