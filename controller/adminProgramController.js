@@ -5,16 +5,18 @@ const Book = require("../Model/book")
 const {resolve} = require("path")
 const Loan = require("../Model/loan")
 
-const getAboutAdmin = (req, res)=>{
-    res.render("admin/about.ejs")
+const getAboutAdmin = async(req, res)=>{
+    let admins = (await Admin.fetch())
+    let count = admins.length 
+    res.render("admin/about.ejs",{count})
 }
 
 const getAdminRAdmin = (req, res)=>{
     res.render("admin/indexAdmin.ejs")
 }
 const HomeAdmin = async(req, res)=>{
-    let users = (await Admin.fetch())
-    let count = users.length    
+    let admins = (await Admin.fetch())
+    let count = admins.length    
     res.render("admin/ProbityLMS.ejs",{count})
 }
   
@@ -57,9 +59,9 @@ const addUserAdmin = async(req, res)=>{
 
 }
 let indexAdmin = async(req, res)=>{
-    let users = (await Admin.fetch())
-    let count = users.length  
-    res.render("admin/probityLMS",{count})
+    let admins = (await Admin.fetch())
+    let count = admins.length  
+    res.render("admin/probityLMS.ejs",{count})
 }
 const getsigninAdmin= (req, res)=>{
     res.render("admin/index.ejs")
@@ -864,7 +866,7 @@ const addurban = async(req, res)=>{
 
 
 module.exports = {
-    getAboutAdmin,getAdminRAdmin,getAgricAdmin,getArchitectureAdmin,getBiochemistryAdmin,
+    getAboutAdmin,getAdminRAdmin, getAgricAdmin,getArchitectureAdmin,getBiochemistryAdmin,
     getBiomedicalAdmin,getBiotechnologyAdmin,getBuildingTechAdmin,
     getChemicalAdmin,getCivilAdmin,getComputerEngAdmin,getComputerScienceAdmin,getCyberAdmin,
     getElectricalAdmin,getEstateMgtAdmin,getForensicAdmin,getIndustrialProductionAdmin,

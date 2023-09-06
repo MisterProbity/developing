@@ -4,8 +4,10 @@ const Loan = require("../Model/loan")
 const User = require("../Model/user")
 
 // user part
-const getAbout = (req, res)=>{
-    res.render("about.ejs")
+const getAbout = async(req, res)=>{
+    let users = await User.fetch()
+    let count = users.length    
+    res.render("about.ejs", {count})
 }
 
 const getAdminR = (req, res)=>{

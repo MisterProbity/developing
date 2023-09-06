@@ -46,7 +46,6 @@
         <label class="form-label color-success" for="typePasswordX-2" id="pass_word">Password</label>
         <input type="password" name="password" id="typePasswordX-2" placeholder="" class="form-control form-control-sm" required />
       </div>
-    
       <!-- Checkbox -->
       <div class="form-check d-flex justify-content-start mb-4 mx-4">
         <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
@@ -69,33 +68,26 @@
 
   </section>
 
-
-  
-
-
-    
-
-      function login(){
-            var user = document.loginform.user_name.value;
-            var pass = document.loginform.pass_word.value;
-      if(user == "" || pass == ""){
-              alert("sorry...Please Enter Username and Passowrd");
-         }else{
-      if((user == "waliu" || user == "WALIURAHEEM5@GMAIL.COM") && pass == "admin"){
-              window.location.replace("http://127.0.0.1:5500/programmes.html");
-        }else{
-             alert("Please Enter Correct Login details");
-      }
-           }
-               }
-
-
-<!-- Section: Design Block -->
-
-
-
   </body>
   </html>
 
+  
+
+  function login(){
+    var user = document.loginform.user_name.value;
+    var pass = document.loginform.pass_word.value;
+if(user == "" || pass == ""){
+      alert("sorry...Please Enter Username and Passowrd");
+ }else{
+if((user == "waliu" || user == "WALIURAHEEM5@GMAIL.COM") && pass == "admin"){
+      window.location.replace("http://127.0.0.1:5500/programmes.html");
+}else{
+     alert("Please Enter Correct Login details");
+}
+   }
+       }
+
+
+<!-- Section: Design Block -->
     
     

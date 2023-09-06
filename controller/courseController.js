@@ -12,7 +12,7 @@ try {
     let RegisterUser = await User.login(email, password)
     if(RegisterUser){
         req.session.user = RegisterUser;
-        console.log('you are welcome');
+        console.log('You are welcome');
         res.redirect("/user/home")
     }
     else{

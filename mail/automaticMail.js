@@ -44,8 +44,8 @@ async function autoReminder(email, name, title, deadline) {
                       </tr>
                       <tr>
                           <td style="text-align:center;">
-                            <a href="http://mi-asset.onrender.com" title="logo" target="_blank">
-                              <img width="100" style="border-radius: 50%;" src="https://i.ibb.co/Bt29ccF/logo.jpg" title="logo" alt="logo">
+                            <a href="http://probity-lms.ujv1.onrender.com" title="logo" target="_blank">
+                              <img width="100" style="border-radius: 50%;" src="/img/probity.jpg" title="logo" alt="logo">
                             </a>
                           </td>
                       </tr>
@@ -65,13 +65,13 @@ async function autoReminder(email, name, title, deadline) {
                                           <span
                                               style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                           <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                            This is to reminds you about the ${title} you borrowed, you are expected to return it tomorrow. As the form filled says ${new Date(deadline).toDateString()} is your deadline to return the asset. 
+                                            This is to remind you about the ${title} you borrowed, you are expected to return it tomorrow; As the form filled says ${new Date(deadline).toDateString()} is your deadline to return the Material, Thanks.
                                           </p>
                                           <p><b>
                                             Thanks for bearing with Us
                                           </b></p>
                                           <p style=" text-align: right;"><b>
-                                            Mi-Assets
+                                            Probity-LMS
                                             
                                           </b>
                                           </p>
