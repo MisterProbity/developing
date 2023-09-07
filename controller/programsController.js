@@ -49,6 +49,7 @@ const getsignin= (req, res)=>{
     res.render("index.ejs")
 }
 
+
 const getLecturer= (req, res)=>{
     res.render("trainers.ejs")
 }
@@ -358,7 +359,7 @@ const geturban  = async(req, res)=>{
 
 
 
-module.exports = { getAbout,postBorrow, getAdminR, getProgramme, getLoan, getborrow, getOpac, getsign, getsignin, 
+module.exports = { getAbout,postBorrow, getAdminR, getProgramme, getLoan, getborrow, getOpac, getsign, getsignin,
 getLecturer, getSearch, getSearchByAuthor, getSearchBySubject, getSearchByYear,
  getAgric, getBiomedical,getBiotechnology, getArchitecture, getCivil, getBiochemistry,
 getBuildingTech, getChemical, getComputerEng,getComputerScience, getCyber, getElectrical,

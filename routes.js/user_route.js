@@ -30,6 +30,8 @@ userRout.get("/searchSubject", getSearchBySubject)
 userRout.get("/indexAdmin", getAdminR)
 
 
+
+
 // courses 
 userRout.get("/agric",getAgric)
 userRout.get("/biomedical",getBiomedical)

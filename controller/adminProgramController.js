@@ -45,6 +45,7 @@ const getsignAdmin= (req, res)=>{
     res.render("admin/signUp.ejs")
 }
 
+
 const addUserAdmin = async(req, res)=>{
     console.log("for me", req.body);
     try {
