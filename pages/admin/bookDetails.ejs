@@ -51,20 +51,20 @@
         <ul>
           <li><a class="active" href=/admin/home>Home</a></li>
         <!-- <li> <a href="https://www.jstor.org/images">jstor</a> </li> -->
-        <li><a href="/user/about">About</a></li>
-        <li><a href="/user/program">Programmes</a></li>
-        <li><a href="/user/lecturer">Lecturers</a></li>
-        <li><a href="/user/loan">Loan</a></li>
-        <li><a href="/user/opac">OPAC</a></li>
+        <li><a href="/admin/about">About</a></li>
+        <li><a href="/admin/program">Programmes</a></li>
+        <li><a href="/admin/lecturer">Lecturers</a></li>
+        <li><a href="/admin/loan">Loan</a></li>
+        <li><a href="/admin/opac">OPAC</a></li>
 
           <li class="dropdown"><a href="#"><span>Search</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Simple search</a></li>
               <li class="dropdown"><a href="#"><span>Advanced search</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
-                  <li><a href="/user/searchAuthor">Search by Author</a></li>
-                  <li><a href="/user/searchSubject">Search by Subject</a></li>
-                  <li><a href="/user/searchYear">Search by Year</a></li>
+                  <li><a href="/admin/searchAuthor">Search by Author</a></li>
+                  <li><a href="/admin/searchSubject">Search by Subject</a></li>
+                  <li><a href="/admin/searchYear">Search by Year</a></li>
                 </ul>
               </li>
               <li><a href="#why-us">Faculty</a></li>
@@ -160,7 +160,7 @@
   
                       <div class="col font-bold">
                         <div class="text-danger"> <b>Due-Date </b></div>
-                        <%= new Date(Number(new Date()) + ( 1 * 24*60*60*1000)).toDateString() %>
+                        <%= new Date(Number(new Date()) + ( 7 * 24*60*60*1000)).toDateString() %>
                        </div> <br>
   
                    </div> <br>
