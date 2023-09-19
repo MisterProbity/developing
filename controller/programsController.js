@@ -100,12 +100,13 @@ const getSearchBySubject = (req,res)=>{
 
 // courses 
 const getAgric = async(req, res)=>{
-    let agricCourses = await Book.Fetchagriculture()
-    for (let book of agricCourses){
+    let AgeCourses = await Book.Fetchagriculture()
+    console.log(AgeCourses);
+    for (let book of AgeCourses){
         book.user = await User.findId(book.user_id)
     }
 
-    res.render("agric.ejs", {agricCourses})
+    res.render("agric.ejs", {AgeCourses})
 }
 
 const getArchitecture = async(req, res)=>{
@@ -277,12 +278,12 @@ const getmechatronics  = async(req, res)=>{
 }
 
 const getmicrobiology  = async(req, res)=>{
-    let microbiologyCourses = await Book.FetchAllMicro()
-    for (let book of microCourses){
+    let microbCourses = await Book.FetchAllMicro()
+    for (let book of microbCourses){
         book.user = await User.findId(book.user_id)
     }
 
-    res.render("microbiology.ejs", {microbiologyCourses})
+    res.render("microbiology.ejs", {microbCourses})
 }
 
 const getpetroleum  = async(req, res)=>{
@@ -322,12 +323,12 @@ const getslt  = async(req, res)=>{
 }
 
 const getsoftware  = async(req, res)=>{
-    let softwareCourses = await Book.FetchAllSoft()
-    for (let book of softCourses){
+    let softwareEngCourses = await Book.FetchAllSoft()
+    for (let book of softwareEngCourses){
         book.user = await User.findId(book.user_id)
     }
 
-    res.render("software.ejs", {softwareCourses})
+    res.render("software.ejs", {softwareEngCourses})
 }
 
 const getstatistics  = async(req, res)=>{

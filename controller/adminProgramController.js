@@ -4,6 +4,7 @@ const Admin = require("../Model/admin")
 const Book = require("../Model/book")
 const {resolve} = require("path")
 const Loan = require("../Model/loan")
+// const admin = require("../routes.js/admin_route")
 
 const getAboutAdmin = async(req, res)=>{
     let admins = (await Admin.fetch())
@@ -46,7 +47,7 @@ const getsignAdmin= (req, res)=>{
 }
 
 
-const addUserAdmin = async(req, res)=>{
+const addUserAdmin = async(req, res)=>{ 
     console.log("for me", req.body);
     try {
     let user = new Admin(req.body) 
@@ -92,49 +93,47 @@ const getSearchBySubjectAdmin = (req,res)=>{
 // courses 
 const getAgricAdmin = async(req, res)=>{
     let id = req?.session?.admin?.id
-    let agricCourses = await Book.Fetchagriculture(id)
-    res.render("admin/agric.ejs", {agricCourses})
+    let AgeCourses = await Book.Fetchagriculture(id)
+    res.render("admin/agric.ejs", {AgeCourses})
 }
 
 const addAgric = async(req, res)=>{
-    let document = req.files.document
-    // let other = {title,author,issbn,location,year,programme,description}
     let admin = req?.session?.admin?.id
-    // let other = {author:this.author,issbn:this.issbn,location:this.location,year:this.year,programme:this.programme,description:this.description}
-    // body = {document,...other}
-    // console.log(other)
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
     let book = new Book(req.body)
-try {
-    if(document){
-        if(!document.mimetype.startsWith("application/")){
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
             req.flash("Error", "only document are expected")
-            console.log("only document are expected");
             req.session.formBody = req.body
             req.session.formErrors = {}
-            return res.redirect("back")
+            console.log(req.body,documents)
         }
-        if(document.size > 5 * 1024 *1024 ){
+        if(documents.size > 5 * 1024 *1024 ){
             req.flash("Errors","File is too large. Maximum of 5mb is allowed")
             req.session.formBody = req.body
             req.session.formErrors = {}
-            return res.redirect("back")
+            console.log(documents.size)
+
         }
-        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${document.mimetype.split("/")[1]}` 
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
         console.log(fileName);
         let filePath = "file-upload/document/" + fileName
         console.log(filePath);
 
-           document.mv(resolve(filePath),(err)=>{
+           documents.mv(resolve(filePath),(err)=>{
             if(!err){
                 book.document = "/document/" + fileName
-                console.log(document);
                 book.admin_id = admin;
                 book.save()
-                // book.other.update()
-
                 console.log("saved in to the file");
-                return res.redirect("back")
-
+                res.redirect("back")
             }
             else{
                 req.flash("Error", "Unable to upload your file")
@@ -150,15 +149,10 @@ try {
             res.redirect("back")
             console.log("Agricultural book added to the system successfully.");
         }
-    }
-  catch (error) {
-        console.log("failed to add Agricultural");
-        res.redirect("back")
-    }
-
-    }
+    
 
 
+    }
 
 const getArchitectureAdmin = async(req, res)=>{
     let id = req?.session?.admin?.id
@@ -167,20 +161,58 @@ const getArchitectureAdmin = async(req, res)=>{
 }
 
 const addArchitecture = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Architecture book added to the system successfully.");
+            console.log("Architecture book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add Architecture");
-            res.redirect("back")
-    }
+    
 
     }
 
@@ -191,23 +223,63 @@ const getBiochemistryAdmin = async (req, res)=>{
     res.render("admin/biochemistry.ejs",{biochemistryCourses})
 }
 
+
 const addBiochemistry = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("biochemistry book added to the system successfully.");
+            console.log("Biochemistry book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add biochemistry");
-            res.redirect("back")
-    }
+    
 
     }
+
 
 
 const getBiomedicalAdmin = async (req, res)=>{
@@ -217,20 +289,58 @@ const getBiomedicalAdmin = async (req, res)=>{
 }
 
 const addBiomedical = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("biomedical book added to the system successfully.");
+            console.log("Biomedical book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add biomedical");
-            res.redirect("back")
-    }
+    
 
     }
 
@@ -244,20 +354,58 @@ const getBiotechnologyAdmin = async(req, res)=>{
 
 const addBiotechnology = async(req, res)=>{
     
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("biotechnology book added to the system successfully.");
+            console.log("Biotechnology book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add biotechnology");
-            res.redirect("back")
-    }
+    
 
     }
 
@@ -269,20 +417,58 @@ const getBuildingTechAdmin = async(req, res)=>{
 }
 
 const addBuildingTech = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("buildind Tech book added to the system successfully.");
+            console.log("BuildingTech book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add building Tech");
-            res.redirect("back")
-    }
+    
 
     }
 
@@ -294,23 +480,59 @@ const getChemicalAdmin = async(req, res)=>{
 }
 
 const addChemical = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("chemical book added to the system successfully.");
+            console.log("Chemical book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add chemical");
-            res.redirect("back")
-    }
 
     }
-
 
 const getCivilAdmin = async(req, res)=>{
     let id = req?.session?.admin?.id
@@ -319,23 +541,60 @@ const getCivilAdmin = async(req, res)=>{
 }
 
 const addCivil = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Civil book added to the system successfully.");
+            console.log("Civil book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add Civil");
-            res.redirect("back")
-    }
+    
 
     }
-
 
 const getComputerEngAdmin  = async(req, res)=>{
     let id = req?.session?.admin?.id
@@ -344,23 +603,60 @@ const getComputerEngAdmin  = async(req, res)=>{
 }
 
 const addComputerEng = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            // console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Computer Engineering book added to the system successfully.");
+            console.log("Computer Engineering book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add computer Engineering");
-            res.redirect("back")
-    }
+    
 
     }
-
 
 const getComputerScienceAdmin  = async (req, res)=>{
     let id = req?.session?.admin?.id
@@ -369,20 +665,58 @@ const getComputerScienceAdmin  = async (req, res)=>{
 }
 
 const addComputerScience = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Computer Science book added to the system successfully.");
+            console.log("Computer Science book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add Computer Science");
-            res.redirect("back")
-    }
+    
 
     }
 
@@ -394,20 +728,58 @@ const getCyberAdmin  = async(req, res)=>{
 }
 
 const addCyber = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Cyber Security book added to the system successfully.");
+            console.log("Cyber Security book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add Cyber Security");
-            res.redirect("back")
-    }
+    
 
     }
 
@@ -419,20 +791,58 @@ const getElectricalAdmin  = async(req, res)=>{
 }
 
 const addElectrical = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Electrical Engineering book added to the system successfully.");
+            console.log("Electrical Engineering book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add ELectrical Engineering");
-            res.redirect("back")
-    }
+    
 
     }
 
@@ -444,23 +854,60 @@ const getEstateMgtAdmin  = async(req, res)=>{
 }
 
 const addEstateMgt = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Estate management book added to the system successfully.");
+            console.log("Estate Management book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add Estate Management");
-            res.redirect("back")
-    }
+    
 
     }
-
 
 const getFoodScienceAdmin  = async(req, res)=>{
     let id = req?.session?.admin?.id
@@ -469,20 +916,58 @@ const getFoodScienceAdmin  = async(req, res)=>{
 }
 
 const addFoodScience = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Food Science book added to the system successfully.");
+            console.log("Food Science book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add Food Science");
-            res.redirect("back")
-    }
+    
 
     }
 
@@ -493,20 +978,58 @@ const getForensicAdmin  =async(req, res)=>{
 }
 
 const addForensic = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Forensic Science book added to the system successfully.");
+            console.log("Forensic Science book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add Forensic Science");
-            res.redirect("back")
-    }
+    
 
     }
 
@@ -518,21 +1041,58 @@ const getindustrialAdmin  = async(req, res)=>{
 }
 
 const addindustrial = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Industrial Chemistry book added to the system successfully.");
+            console.log("Industrial Chemeistry book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add Industrial Chemistry");
-            res.redirect("back")
-    }
-
+    
     }
 
 
@@ -544,20 +1104,58 @@ const getIndustrialProductionAdmin  = async(req, res)=>{
 }
 
 const addIndustrialProduction = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Industrial Production book added to the system successfully.");
+            console.log("Industrial Engineering book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add Industrial Production");
-            res.redirect("back")
-    }
+    
 
     }
 
@@ -570,21 +1168,58 @@ const getMathsAdmin  = async(req, res)=>{
 }
 
 const addMaths = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Maths book added to the system successfully.");
+            console.log("Mathemeatics book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add Maths");
-            res.redirect("back")
-    }
-
+    
     }
 
 
@@ -595,20 +1230,58 @@ const getmechanicalAdmin  = async(req, res)=>{
 }
 
 const addmechanical = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Mechanical Engineering book added to the system successfully.");
+            console.log("Mechanical Engineeering book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add Mechanical Engineering");
-            res.redirect("back")
-    }
+    
 
     }
 
@@ -620,45 +1293,121 @@ const getmechatronicsAdmin  =async (req, res)=>{
 }
 
 const addmechatronics = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("bMechatronics Engineering book added to the system successfully.");
+            console.log("Mechatronics Engineering book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add Mechatronics Engineering");
-            res.redirect("back")
-    }
+    
 
     }
 
 
 const getmicrobiologyAdmin  = async(req, res)=>{
     let id = req?.session?.admin?.id
-    let microbiologyCourses = await Book.FetchMicro(id)
-    res.render("admin/microbiology.ejs", {microbiologyCourses})
+    let microbCourses = await Book.FetchMicro(id)
+    res.render("admin/microbiology.ejs", {microbCourses})
 }
 
 const addmicrobiology = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Microbiology book added to the system successfully.");
+            console.log("Microbiology book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add Microbiology");
-            res.redirect("back")
-    }
+    
 
     }
 
@@ -670,22 +1419,60 @@ const getpetroleumAdmin  = async(req, res)=>{
 }
 
 const addpetroleum = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Petroleum Engineering book added to the system successfully.");
+            console.log("Petroleum Engineering book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add Petroleum Engineering");
-            res.redirect("back")
+    
     }
 
-    }
 
 const getphysicsAdmin  = async(req, res)=>{
     let id = req?.session?.admin?.id
@@ -694,21 +1481,58 @@ const getphysicsAdmin  = async(req, res)=>{
 }
 
 const addphysics = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Physics book added to the system successfully.");
+            console.log("Physics book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add Physics");
-            res.redirect("back")
-    }
-
+    
     }
 
 
@@ -720,20 +1544,58 @@ const getQuantityAdmin  = async(req, res)=>{
 }
 
 const addQuantity = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Quantity Surveying book added to the system successfully.");
+            console.log("Quantity Surveying book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add Quantity Surveying");
-            res.redirect("back")
-    }
+    
 
     }
 
@@ -746,20 +1608,58 @@ const getsltAdmin  = async(req, res)=>{
 }
 
 const addslt = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("SLT book added to the system successfully.");
+            console.log("Science and Laboratory Tech book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add SLT");
-            res.redirect("back")
-    }
+    
 
     }
 
@@ -767,25 +1667,63 @@ const addslt = async(req, res)=>{
 
 const getsoftwareAdmin  = async(req, res)=>{
     let id = req?.session?.admin?.id
-    let softwareCourses = await Book.FetchSoft(id)
-    res.render("admin/software.ejs", {softwareCourses})
+    let softwareEngCourses = await Book.FetchSoft(id)
+    res.render("admin/software.ejs", {softwareEngCourses})
 }
 
 const addsoftware = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Software engineering book added to the system successfully.");
+            console.log("Software Engineering book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add Software engineering");
-            res.redirect("back")
-    }
+    
 
     }
 
@@ -798,20 +1736,58 @@ const getstatisticsAdmin  = async(req, res)=>{
 }
 
 const addstatistics = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Statistics book added to the system successfully.");
+            console.log("Statistics book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add Statistics");
-            res.redirect("back")
-    }
+    
 
     }
 
@@ -823,20 +1799,58 @@ const getsurveyAdmin  = async(req, res)=>{
 }
 
 const addsurvey = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Surveying and Geoinformatics book added to the system successfully.");
+            console.log("Survey ans Geoinformatics book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add Surveying and Geoinformatics");
-            res.redirect("back")
-    }
+    
 
     }
 
@@ -847,21 +1861,58 @@ const geturbanAdmin  = async(req, res)=>{
 }
 
 const addurban = async(req, res)=>{
-    try {
-        let admin = req?.session?.admin?.id
-            let book = new Book(req.body)
-            console.log(req.body);
+    let admin = req?.session?.admin?.id
+    console.log(admin)
+    
+    let {document, author, issbn, location, year, programme, description} = req.body;
+    let book = new Book(req.body)
+    book.admin_id = admin;
+    console.log(req.body);
+    const documents = req.files.document
+   
+    if(documents){
+        if(!documents.mimetype.startsWith("application/")){
+            req.flash("Error", "only document are expected")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(req.body,documents)
+        }
+        if(documents.size > 5 * 1024 *1024 ){
+            req.flash("Errors","File is too large. Maximum of 5mb is allowed")
+            req.session.formBody = req.body
+            req.session.formErrors = {}
+            console.log(documents.size)
+
+        }
+        book.setObjProp(req.body);
+        const fileName = `${(Math.random() * 10 ).toString(36) + Number(new Date())}.${documents.mimetype.split("/")[1]}` 
+        console.log(fileName);
+        let filePath = "file-upload/document/" + fileName
+        console.log(filePath);
+
+           documents.mv(resolve(filePath),(err)=>{
+            if(!err){
+                book.document = "/document/" + fileName
+                book.admin_id = admin;
+                book.save()
+                console.log("saved in to the file");
+                res.redirect("back")
+            }
+            else{
+                req.flash("Error", "Unable to upload your file")
+                req.session.formBody = req.body
+                req.session.formErrors = {}
+                console.log("unable to upload your file");
+                return res.redirect("back")
+            }
+           })
+        }else{
             book.admin_id = admin
             await book.save()
             res.redirect("back")
-                console.log("Urban and Regional Planning book added to the system successfully.");
+            console.log("Urban And Regional Planning book added to the system successfully.");
         }
-  catch (error) {
-            
-            console.log("failed to add Urban and Regional Planning");
-            res.redirect("back")
-    }
-
+    
     }
 
 
