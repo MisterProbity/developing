@@ -33,7 +33,7 @@ const getOpacAdmin= (req, res)=>{
     res.render("admin/opac.ejs")
 }
 
-const getborrowAdmin= async(req, res)=>{
+const getborrowAdmin = async(req, res)=>{
     let id = req?.params?.id
     let book = await Book.findId(id)
     let admin = req?.session?.admin;
