@@ -4,6 +4,7 @@ const Admin = require("../Model/admin")
 const Book = require("../Model/book")
 const {resolve} = require("path")
 const Loan = require("../Model/loan")
+
 // const admin = require("../routes.js/admin_route")
 
 const getAboutAdmin = async(req, res)=>{
@@ -34,11 +35,12 @@ const getOpacAdmin= (req, res)=>{
 }
 
 const getborrowAdmin = async(req, res)=>{
-    let id = req?.params?.id
-    let book = await Book.findId(id)
-    let admin = req?.session?.admin;
-let borrowers = await Loan.patron(book.programme)
+        let id = req?.params?.id
+       var book = await Book.findId(id)
+       console.log(book);
+    let borrowers = await Loan.patron(book.programme)
     book.admin = await Admin.findId(book.admin_id)
+
     res.render("admin/bookDetails.ejs",{book, borrowers})
 }
 
@@ -93,8 +95,8 @@ const getSearchBySubjectAdmin = (req,res)=>{
 // courses 
 const getAgricAdmin = async(req, res)=>{
     let id = req?.session?.admin?.id
-    let AgeCourses = await Book.Fetchagriculture(id)
-    res.render("admin/agric.ejs", {AgeCourses})
+    let AgrCourses = await Book.Fetchagriculture(id)
+    res.render("admin/agric.ejs", {AgrCourses})
 }
 
 const addAgric = async(req, res)=>{

@@ -22,6 +22,7 @@ class Loan extends Model{
         }
         return result
     }
+    
     static async fetchPatron(){
         let result = []
         let sql = `SELECT us.first_Name, us.email, us.last_Name, bk.title, due_date FROM loans ln LEFT JOIN books bk ON ln.book_id=bk.id LEFT JOIN users us ON ln.user_id = us.id ;`

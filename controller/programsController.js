@@ -37,7 +37,7 @@ const addUser = async(req, res)=>{
     let user = new User(req.body) 
      await user.save()
    res.redirect("/user/login")
-        
+   
     } catch (error) {
         throw error;
         redirect("back")
@@ -59,7 +59,6 @@ const getSearch = (req,res)=>{
 }
 
 const getborrow = async(req,res)=>{
-    
     let id = req?.params?.id
     let book = await Book.findId(id)
     let user = req?.session?.user;
@@ -100,13 +99,13 @@ const getSearchBySubject = (req,res)=>{
 
 // courses 
 const getAgric = async(req, res)=>{
-    let AgeCourses = await Book.Fetchagriculture()
-    console.log(AgeCourses);
-    for (let book of AgeCourses){
+    let AgrCourses = await Book.Fetchagriculture()
+    console.log(AgrCourses);
+    for (let book of AgrCourses){
         book.user = await User.findId(book.user_id)
     }
 
-    res.render("agric.ejs", {AgeCourses})
+    res.render("agric.ejs", {AgrCourses})
 }
 
 const getArchitecture = async(req, res)=>{

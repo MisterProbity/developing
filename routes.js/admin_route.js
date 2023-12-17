@@ -9,7 +9,7 @@ const { getAboutAdmin, getProgrammeAdmin, getLoanAdmin, getborrowAdmin, getLectu
      getpetroleumAdmin, getphysicsAdmin, getQuantityAdmin, getsltAdmin, getsoftwareAdmin, getstatisticsAdmin,
      getsurveyAdmin, geturbanAdmin, HomeAdmin, indexAdmin, addBiochemistry, addArchitecture, addAgric,
       addBiomedical, addBiotechnology, addCivil, addBuildingTech, addChemical, addComputerEng, 
-      addComputerScience, addCyber, addEstateMgt, addFoodScience, addForensic, addindustrial, 
+      addComputerScience, addCyber, addEstateMgt, addFoodScience, addForensic, addindustrial,
       addIndustrialProduction, addMaths, addmechanical, addmechatronics, addmicrobiology, addpetroleum, 
       addphysics, addQuantity, addslt, addsoftware, addstatistics, addsurvey, addurban, addElectrical, } = require("../controller/adminProgramController");
 const admin = Router()

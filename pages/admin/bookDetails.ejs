@@ -200,7 +200,7 @@
             </tr>
             </thead>
             <tbody class="table-group-divider">
-              <% for(borrower of borrowers  ) { %>
+              <% for(let borrower of borrowers  ) { %>
                 <tr class="table-danger" >
                   <td scope="row"><%= borrower.first_Name + " " + borrower.last_Name %></td>
                   <td><%= borrower.title %></td>
